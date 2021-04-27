@@ -4,13 +4,10 @@ import (
 	"testing"
 )
 
-func TestGet(t *testing.T) {
-
+func giveValidURLExpecteSuccess(t *testing.T) {
 	_, err := GetSupportLanguages()
-
 	if err != nil {
 		t.Error("Fail, no response found")
 		return
 	}
-
 }

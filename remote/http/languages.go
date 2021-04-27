@@ -2,9 +2,7 @@ package http
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
-	"net/http"
 )
 
 //SupportLanguage -  representation type of suport languages
@@ -20,23 +18,16 @@ func GetSupportLanguages() (response []SupportLanguage, err error) {
 
 	var languages []SupportLanguage
 
-	resp, err := http.Get("https://libretranslate.com/languages")
-	defer resp.Body.Close()
+	resp, err := HttpGet("https://libretranslate.com/languages")
 
 	if err != nil {
 		log.Fatalln(err)
 		return languages, err
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-		return languages, err
-	}
-
-	json.Unmarshal([]byte(body), &languages)
+	json.Unmarshal([]byte(resp), &languages)
 	if len(languages) < 1 {
-		log.Fatal("No response %v %v", string(body), err)
+		log.Fatal("No response")
 		return languages, err
 	}
 

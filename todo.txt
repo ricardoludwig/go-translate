@@ -1,0 +1,2 @@
+- implement translate function
+- treat errors

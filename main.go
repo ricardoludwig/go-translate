@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ricardoludwig/go-translate/http"
+	"github.com/ricardoludwig/go-translate/remote/http"
 )
 
 func main() {
