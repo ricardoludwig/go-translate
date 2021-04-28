@@ -3,9 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
-
 	"github.com/ricardoludwig/go-translate/remote/http"
+	"os"
 )
 
 func main() {

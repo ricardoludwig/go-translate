@@ -5,10 +5,15 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"net/http"
+	netHttp "net/http"
+	"time"
 )
 
 const invalidURLMsg = "Invalid URL"
+
+var netClient = &netHttp.Client{
+	Timeout: time.Second * 5,
+}
 
 var ErrorInvalidURL = errors.New(invalidURLMsg)
 
@@ -19,11 +24,12 @@ func HttpGet(url string) (response string, err error) {
 		return "", fmt.Errorf("%v %w", invalidURLMsg, ErrorInvalidURL)
 	}
 
-	resp, err := http.Get(url)
-	defer resp.Body.Close()
+	resp, err := netClient.Get(url)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 
 	if err != nil {
-		log.Println(err)
 		return "", err
 	}
 

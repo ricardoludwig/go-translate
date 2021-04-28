@@ -1,2 +1,4 @@
 - implement translate function
 - treat errors
+- add timeout
+
