@@ -34,3 +34,20 @@ func GetSupportLanguages() (response []SupportLanguage, err error) {
 	return languages, nil
 
 }
+
+func Translate(text string, source SupportLanguage, target SupportLanguage) (response string, err error) {
+
+	resp, err := HttpPost("https://libretranslate.com/translate", translateBody(text, source, target))
+
+	if err != nil {
+		log.Fatalln(err)
+		return "", err
+	}
+
+	return resp, nil
+}
+
+func translateBody(text string, source SupportLanguage, target SupportLanguage) (body string) {
+	//body := "q=hello&source=en&target=pt&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	return "q=" + text + "&source=" + source.Code + "&target=" + target.Code + "&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+}

@@ -9,6 +9,12 @@ import (
 
 func main() {
 
+	fmt.Println(translate())
+
+}
+
+func getLanguages() {
+
 	resp, err := http.GetSupportLanguages()
 
 	if err != nil {
@@ -23,5 +29,28 @@ func main() {
 	}
 
 	fmt.Println(string(response))
+
+}
+
+func translate() (textTranslated string) {
+
+	en := http.SupportLanguage{
+		Code:     "en",
+		Language: "English",
+	}
+
+	pt := http.SupportLanguage{
+		Code:     "pt",
+		Language: "English",
+	}
+
+	resp, err := http.Translate("hello", en, pt)
+
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+		os.Exit(1)
+	}
+
+	return resp
 
 }
