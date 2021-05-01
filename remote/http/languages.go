@@ -35,6 +35,10 @@ func GetSupportLanguages() (response []SupportLanguage, err error) {
 
 }
 
+type TranslatedText struct {
+	RespText string `json:"translatedText"`
+}
+
 func Translate(text string, source SupportLanguage, target SupportLanguage) (response string, err error) {
 
 	resp, err := HttpPost("https://libretranslate.com/translate", translateBody(text, source, target))
@@ -44,10 +48,12 @@ func Translate(text string, source SupportLanguage, target SupportLanguage) (res
 		return "", err
 	}
 
-	return resp, nil
+	var translatedText TranslatedText
+	json.Unmarshal([]byte(resp), &translatedText)
+
+	return translatedText.RespText, nil
 }
 
 func translateBody(text string, source SupportLanguage, target SupportLanguage) (body string) {
-	//body := "q=hello&source=en&target=pt&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	return "q=" + text + "&source=" + source.Code + "&target=" + target.Code + "&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 }

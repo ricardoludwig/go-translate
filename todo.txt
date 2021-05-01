@@ -1,6 +1,6 @@
 x implement translate function
 x add timeout
-- pass text to translate, source and target languages in cli
+x pass text to translate, source and target languages in cli
 - valid code languages
 - treat errors
 

@@ -1,15 +1,27 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
-	"github.com/ricardoludwig/go-translate/remote/http"
 	"os"
+
+	"github.com/ricardoludwig/go-translate/remote/http"
 )
 
 func main() {
 
-	fmt.Println(translate())
+	args := os.Args[1:]
+	source := args[0]
+	target := args[1]
+
+	fmt.Println("Translate")
+
+	inputReader := bufio.NewReader(os.Stdin)
+	text, _ := inputReader.ReadString('\n')
+
+	translated := translate(text, source, target)
+	fmt.Println(translated)
 
 }
 
@@ -32,19 +44,19 @@ func getLanguages() {
 
 }
 
-func translate() (textTranslated string) {
+func translate(text string, source string, target string) (textTranslated string) {
 
 	en := http.SupportLanguage{
-		Code:     "en",
+		Code:     source,
 		Language: "English",
 	}
 
 	pt := http.SupportLanguage{
-		Code:     "pt",
+		Code:     target,
 		Language: "English",
 	}
 
-	resp, err := http.Translate("hello", en, pt)
+	resp, err := http.Translate(text, en, pt)
 
 	if err != nil {
 		fmt.Printf("Error: %v", err)
