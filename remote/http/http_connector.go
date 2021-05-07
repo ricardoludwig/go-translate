@@ -15,7 +15,7 @@ const invalidURLMsg = "Invalid URL"
 var ErrorInvalidURL = errors.New(invalidURLMsg)
 
 var getClient = &netHttp.Client{
-	Timeout: time.Second * 5,
+	Timeout: time.Second * 35,
 }
 
 func HttpGet(url string) (response string, err error) {

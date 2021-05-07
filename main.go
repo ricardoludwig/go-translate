@@ -2,17 +2,30 @@ package main
 
 import (
 	"bufio"
-	"encoding/json"
 	"fmt"
 	"os"
 
+	"github.com/ricardoludwig/go-translate/model"
 	"github.com/ricardoludwig/go-translate/remote/http"
 )
 
+var languages []model.Language
+
 func main() {
 
+	languages := getLanguages()
+
 	args := os.Args[1:]
+
 	source := args[0]
+
+	if source == "languages" {
+		model.Print(languages)
+		model.SortByCode(languages)
+		model.Print(languages)
+		os.Exit(0)
+	}
+
 	target := args[1]
 
 	fmt.Println("Translate")
@@ -25,38 +38,39 @@ func main() {
 
 }
 
-func getLanguages() {
+func getLanguages() (response []model.Language) {
 
-	resp, err := http.GetSupportLanguages()
+	resp, err := http.GetLanguages()
 
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 		os.Exit(1)
 	}
 
-	response, err := json.Marshal(resp)
-	if err != nil {
-		fmt.Printf("Error: %v", err)
-		os.Exit(1)
-	}
-
-	fmt.Println(string(response))
+	return resp
 
 }
 
 func translate(text string, source string, target string) (textTranslated string) {
 
-	en := http.SupportLanguage{
-		Code:     source,
-		Language: "English",
+	// sourceName := ""
+	// targetName := ""
+
+	// if len(languages) > 0 {
+
+	// }
+
+	langSource := model.Language{
+		Code: source,
+		Name: "English",
 	}
 
-	pt := http.SupportLanguage{
-		Code:     target,
-		Language: "English",
+	langTarget := model.Language{
+		Code: target,
+		Name: "English",
 	}
 
-	resp, err := http.Translate(text, en, pt)
+	resp, err := http.Translate(text, langSource, langTarget)
 
 	if err != nil {
 		fmt.Printf("Error: %v", err)
