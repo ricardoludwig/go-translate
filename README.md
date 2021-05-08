@@ -21,4 +21,6 @@ translator en pt [return]
 Translate
 hello
 Olá.
+
+Press q plus return to exit
 ```
