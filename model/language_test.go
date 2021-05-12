@@ -16,9 +16,10 @@ func TestLanguagesSortByCode(t *testing.T) {
 		Code: "en",
 	}
 
-	languages := []Language{pt, en}
+	languages := Languages{pt, en}
 
-	SortByCode(languages)
+	languages.SortByCode()
+	//SortByCode(languages)
 
 	if languages[0].Code != "en" {
 		t.Error("Fail, expected english code en but got " + languages[0].Code)

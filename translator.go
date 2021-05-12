@@ -5,15 +5,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ricardoludwig/go-translate/model"
-	"github.com/ricardoludwig/go-translate/remote/http"
+	"github.com/ricardoludwig/translator/model"
+	"github.com/ricardoludwig/translator/remote/http"
 )
 
-var languages []model.Language
-
 func main() {
-
-	languages := getLanguages()
 
 	args := os.Args[1:]
 
@@ -24,16 +20,14 @@ func main() {
 	}
 
 	source := args[0]
-
 	if source == "help" {
 		help()
 		os.Exit(0)
 	}
 
+	languages := getLanguages()
 	if source == "languages" {
-		model.Print(languages)
-		model.SortByCode(languages)
-		model.Print(languages)
+		languages.SortByCodeCopy().Print()
 		os.Exit(0)
 	}
 
@@ -52,7 +46,7 @@ func main() {
 			os.Exit(0)
 		}
 
-		translated := translate(text, source, target)
+		translated := translate(text, source, target, languages)
 		fmt.Println(translated)
 	}
 
@@ -80,7 +74,7 @@ func help() {
 
 }
 
-func getLanguages() (response []model.Language) {
+func getLanguages() (response model.Languages) {
 
 	resp, err := http.GetLanguages()
 
@@ -93,23 +87,14 @@ func getLanguages() (response []model.Language) {
 
 }
 
-func translate(text string, source string, target string) (textTranslated string) {
-
-	// sourceName := ""
-	// targetName := ""
-
-	// if len(languages) > 0 {
-
-	// }
+func translate(text string, source string, target string, languages []model.Language) (textTranslated string) {
 
 	langSource := model.Language{
 		Code: source,
-		Name: "English",
 	}
 
 	langTarget := model.Language{
 		Code: target,
-		Name: "English",
 	}
 
 	resp, err := http.Translate(text, langSource, langTarget)

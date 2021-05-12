@@ -13,12 +13,23 @@ type Language struct {
 	Name string `json:"name"`
 }
 
-func SortByCode(l []Language) {
-	sort.Slice(l, func(i, j int) bool { return l[i].Code < l[j].Code })
+type Languages []Language
+
+// SortByCode sorted by Language.code
+func (ls Languages) SortByCode() {
+	sort.Slice(ls, func(i, j int) bool { return ls[i].Code < ls[j].Code })
 }
 
-func Print(resp []Language) {
-	response, err := json.Marshal(resp)
+// SortByCodeCopy return a copy of the orign slice sorted by Language.code
+func (ls Languages) SortByCodeCopy() (l Languages) {
+	l = make(Languages, len(ls), len(ls))
+	copy(l, ls)
+	sort.Slice(l, func(i, j int) bool { return l[i].Code < l[j].Code })
+	return l
+}
+
+func (ls Languages) Print() {
+	response, err := json.Marshal(ls)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 		os.Exit(1)

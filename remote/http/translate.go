@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/ricardoludwig/go-translate/model"
+	"github.com/ricardoludwig/translator/model"
 )
 
 // GetLanguages - this function make a Http Get
 // request to libretranslate.com/languages and obtain an
 // array of support languages to translation
-func GetLanguages() (response []model.Language, err error) {
+func GetLanguages() (response model.Languages, err error) {
 
-	var languages []model.Language
+	var languages model.Languages
 
 	resp, err := HttpGet("https://libretranslate.com/languages")
 
