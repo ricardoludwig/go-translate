@@ -14,7 +14,7 @@ func main() {
 	args := os.Args[1:]
 
 	if len(args) < 1 {
-		fmt.Println("\n Error: no args found\n\n")
+		fmt.Println("\n Error: Args not found")
 		help()
 		os.Exit(1)
 	}
@@ -46,7 +46,7 @@ func main() {
 			os.Exit(0)
 		}
 
-		translated := translate(text, source, target, languages)
+		translated := translate("hello", source, target, languages)
 		fmt.Println(translated)
 	}
 
@@ -59,12 +59,12 @@ func help() {
 	fmt.Print("Translator uses libreTranslate API, during my tests a got some instability issues,")
 	fmt.Println(" so is possible that happens occasionally.")
 	fmt.Println("Usage:")
-	fmt.Println("\t translator [command]\n")
+	fmt.Println("\t translator [command]")
 	fmt.Println("Available commands:")
 	fmt.Println("\tlanguages\t get available available languages to translate")
 	fmt.Println("\ttranslate\t has three arguments source language, target language, and return (enter) command.")
 	fmt.Println("\t\t\t after that, you can type a word or sentence to translate")
-	fmt.Println("\thelp     \t show this\n")
+	fmt.Println("\thelp     \t show this")
 	fmt.Println("Take a look at translator command, e.g.")
 	fmt.Println("\ttranslator en pt [return]")
 	fmt.Println("\tTranslate")
