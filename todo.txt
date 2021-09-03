@@ -1,9 +1,0 @@
-x implement translate function
-x add timeout
-x pass text to translate, source and target languages in cli
-x sort languages supported
-x add help
-- valid code languages
-- treat errors
-- do a help
-

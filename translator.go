@@ -46,9 +46,54 @@ func main() {
 			os.Exit(0)
 		}
 
-		translated := translate("hello", source, target, languages)
+		langSource := model.Language{
+			Code: source,
+		}
+
+		langTarget := model.Language{
+			Code: target,
+		}
+
+		translated := translate("hello", langSource, langTarget, languages)
 		fmt.Println(translated)
 	}
+
+}
+
+func getLanguages() (response model.Languages) {
+
+	resp, err := http.GetLanguages()
+
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+		os.Exit(1)
+	}
+
+	return resp
+
+}
+
+func translate(text string, source model.Language, target model.Language, languages model.Languages) (textTranslated string) {
+
+	if languages.Contains(source) == false {
+		fmt.Printf("Invalid language %v\n", source)
+		os.Exit(1)
+	}
+
+	if languages.Contains(target) == false {
+		fmt.Printf("Invalid language %v", source)
+		os.Exit(1)
+	}
+
+	resp, err := http.Translate(text, source, target)
+
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("resposta %v\n", resp)
+	return resp
 
 }
 
@@ -71,39 +116,5 @@ func help() {
 	fmt.Println("\thello")
 	fmt.Println("\tOlá.")
 	fmt.Println("Press q plus return to exit")
-
-}
-
-func getLanguages() (response model.Languages) {
-
-	resp, err := http.GetLanguages()
-
-	if err != nil {
-		fmt.Printf("Error: %v", err)
-		os.Exit(1)
-	}
-
-	return resp
-
-}
-
-func translate(text string, source string, target string, languages []model.Language) (textTranslated string) {
-
-	langSource := model.Language{
-		Code: source,
-	}
-
-	langTarget := model.Language{
-		Code: target,
-	}
-
-	resp, err := http.Translate(text, langSource, langTarget)
-
-	if err != nil {
-		fmt.Printf("Error: %v", err)
-		os.Exit(1)
-	}
-
-	return resp
 
 }

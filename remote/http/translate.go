@@ -47,6 +47,8 @@ func Translate(text string, source model.Language, target model.Language) (respo
 	var translatedText TranslatedText
 	json.Unmarshal([]byte(resp), &translatedText)
 
+	log.Printf("TranslatedText %v\n", translatedText)
+
 	return translatedText.RespText, nil
 }
 

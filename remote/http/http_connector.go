@@ -69,7 +69,13 @@ func HttpPost(url string, body string) (response string, err error) {
 		return "", err
 	}
 
-	return string(respBody), nil
+	strRespBody := string(respBody)
+
+	if strings.Contains(strRespBody, "error") {
+		return "", fmt.Errorf("%v", strRespBody)
+	}
+
+	return strRespBody, nil
 
 }
 

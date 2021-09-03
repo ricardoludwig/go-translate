@@ -36,3 +36,21 @@ func (ls Languages) Print() {
 	}
 	fmt.Println(string(response))
 }
+
+func (ls Languages) Contains(lang Language) bool {
+	for _, l := range ls {
+		if l.equals(lang) {
+			return true
+		}
+		//	if l == lang {
+		//		return true
+		//	} else if l.Code == lang.Code {
+		//		return true
+		//	}
+	}
+	return false
+}
+
+func (l Language) equals(lang Language) bool {
+	return l.Code == lang.Code
+}

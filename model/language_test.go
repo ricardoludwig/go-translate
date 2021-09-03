@@ -4,19 +4,19 @@ import (
 	"testing"
 )
 
+var pt = Language{
+	Name: "Português",
+	Code: "pt",
+}
+
+var en = Language{
+	Name: "English",
+	Code: "en",
+}
+
+var languages = Languages{pt, en}
+
 func TestLanguagesSortByCode(t *testing.T) {
-
-	pt := Language{
-		Name: "Portugues",
-		Code: "pt",
-	}
-
-	en := Language{
-		Name: "English",
-		Code: "en",
-	}
-
-	languages := Languages{pt, en}
 
 	languages.SortByCode()
 	//SortByCode(languages)
@@ -26,4 +26,12 @@ func TestLanguagesSortByCode(t *testing.T) {
 		return
 	}
 
+}
+
+func TestContainsLanguageInSlice(t *testing.T) {
+
+	if languages.Contains(en) == false {
+		t.Error("Fail, was expect found " + en.Code)
+		return
+	}
 }
