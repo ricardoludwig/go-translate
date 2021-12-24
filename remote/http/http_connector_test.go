@@ -6,7 +6,7 @@ import (
 
 func TestGetWithSucess(t *testing.T) {
 
-	_, err := HttpGet("http://google.com")
+	_, err := Get("http://google.com")
 
 	if err != nil {
 		t.Error("Fail, no response found")
@@ -17,7 +17,7 @@ func TestGetWithSucess(t *testing.T) {
 
 func TestGetInvalidURL(t *testing.T) {
 
-	response, err := HttpGet("")
+	response, err := Get("")
 	if len(response) > 1 {
 		t.Error("Fail, no response was expected to invalid request URL")
 		return

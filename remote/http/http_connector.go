@@ -18,7 +18,7 @@ var getClient = &netHttp.Client{
 	Timeout: time.Second * 35,
 }
 
-func HttpGet(url string) (response string, err error) {
+func Get(url string) (response string, err error) {
 
 	if validURL(url) != nil {
 		return "", fmt.Errorf("%v %w", invalidURLMsg, ErrorInvalidURL)
@@ -47,7 +47,7 @@ var postClient = &netHttp.Client{
 	Timeout: time.Second * 35,
 }
 
-func HttpPost(url string, body string) (response string, err error) {
+func Post(url string, body string) (response string, err error) {
 
 	if validURL(url) != nil {
 		return "", fmt.Errorf("%v %w", invalidURLMsg, ErrorInvalidURL)

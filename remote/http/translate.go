@@ -14,7 +14,7 @@ func GetLanguages() (response model.Languages, err error) {
 
 	var languages model.Languages
 
-	resp, err := HttpGet("https://libretranslate.com/languages")
+	resp, err := Get("https://libretranslate.com/languages")
 
 	if err != nil {
 		log.Fatalln(err)
@@ -37,7 +37,7 @@ type TranslatedText struct {
 
 func Translate(text string, source model.Language, target model.Language) (response string, err error) {
 
-	resp, err := HttpPost("https://libretranslate.com/translate", translateBody(text, source, target))
+	resp, err := Post("https://libretranslate.com/translate", translateBody(text, source, target))
 
 	if err != nil {
 		log.Fatalln(err)
